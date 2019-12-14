@@ -20,7 +20,7 @@ end
 function Core:afterDownload()
 	outputDebugString("Client] afterDownload-classes are loading...")
 
-	RegisterLogin:new()
+	--RegisterLogin:new()
 
 	outputDebugString("Client] afterDownload-classes finished loading...")
 end
