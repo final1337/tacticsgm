@@ -1,0 +1,33 @@
+<meta>
+    <info
+        author="FiNAL" type="gamemode" version="1.0" description="DM-Lobby"
+    />
+
+    <!-- OOP Utils -->
+    <script src="shared/constants.lua" type="shared" />
+	<script src="shared/async.lua" type="shared" />
+	<script src="shared/classlib.lua" type="shared" />
+	<script src="shared/Object.lua" type="shared" />
+	<script src="shared/Singleton.lua" type="shared" />
+    <!-- ########## -->
+
+    <!-- Main Files -->
+    <script src="settings.lua" />
+    <!-- ########## -->
+
+    <!-- SERVER -->
+    <script src="server/Main.lua" />
+        <!-- Classes -->
+        <script src="server/classes/Core.lua" />
+        <!-- ########## -->
+    <!-- ########## -->
+
+    <!-- CLIENT -->
+    <script src="client/Main.lua" />
+        <!-- Classes -->
+        <script src="client/classes/Core.lua" />
+        <script src="client/classes/LocalPlayer.lua" />
+        <!-- ########## -->
+    <!-- ########## -->
+
+</meta>
