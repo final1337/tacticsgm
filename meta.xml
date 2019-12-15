@@ -2,6 +2,8 @@
     <info author="FiNAL" type="gamemode" version="1.0" description="Hamburg Tactics for Dreibeine"/>
      <oop>true</oop>
 
+    <file src="files/fonts/EkMukta.ttf" />
+
     <!-- OOP Utils -->
 	<script src="shared/constants.lua" 		type="shared"/>
 	<script src="shared/async.lua" 			type="shared"/>

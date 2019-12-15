@@ -11,8 +11,13 @@ function RegisterLogin:constructor()
 end
 
 function RegisterLogin:Event_Register()
+    DGS = exports.dgs
+
+    DGS:dgsSetSystemFont("files/fonts/EkMukta.ttf", 18)
+
     self.m_Window = DGSClass:createWindow(screenWidth/2 - 400/2, screenHeight/2 - 350/2, 400, 350, "Hamburg Tactics Login", false)
 
     self.m_Window:setMovable(false)
     self.m_Window:setSizable(false)
+
 end
