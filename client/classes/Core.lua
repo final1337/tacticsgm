@@ -1,13 +1,13 @@
-Core = inherit(Object)
+Core = {}
 
 function Core:constructor()
 	outputDebugString("Clientside-Loading core...")
 
 	core = self
-	
+
 	-- // init localplayer instance
 	enew(localPlayer, LocalPlayer)
-
+	
 	bindKey("b", "up",
 		function()
 			showCursor(not isCursorShowing())

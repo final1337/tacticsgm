@@ -7,11 +7,11 @@
 --\\
 SERVER = triggerServerEvent == nil
 CLIENT = not SERVER
-DEBUG_CLASS = DEBUG_CLASS or true
+DEBUG = DEBUG or false
 
 function enew(element, class, ...)
 	-- DEBUG: Validate that we are not instantiating a class with pure virtual methods
-	if DEBUG_CLASS then
+	if DEBUG then
 		for k, v in pairs(class) do
 			assert(v ~= pure_virtual, "Attempted to instanciate a class with an unimplemented pure virtual method ("..tostring(k)..")")
 		end
@@ -64,20 +64,11 @@ function enew(element, class, ...)
 	return element
 end
 
-function getclassname(self)
-	for key, value in pairs(_G) do
-		if value == classof(self) then
-			return key
-		end
-	end
-	return false
-end
-
 function new(class, ...)
 	assert(type(class) == "table", "first argument provided to new is not a table")
 	
 	-- DEBUG: Validate that we are not instantiating a class with pure virtual methods
-	if DEBUG_CLASS then
+	if DEBUG then
 		for k, v in pairs(class) do
 			assert(v ~= pure_virtual, "Attempted to instanciate a class with an unimplemented pure virtual method ("..tostring(k)..")")
 		end
@@ -181,7 +172,7 @@ function classof(self)
 end
 
 function inherit(from, what)
-	assert(from, "Attempt to inherit a nil table value :" .. debug.traceback())
+	assert(from, "Attempt to inherit a nil table value")
 	if not what then
 		local classt = setmetatable({}, { __index = _inheritIndex, __super = { from } })
 		if from.onInherit then
@@ -234,6 +225,7 @@ function instanceof(self, class, direct)
 	local check = false
 	-- Check if any of 'self's base classes is inheriting from 'class'
 	for k, v in pairs(superMultiple(self)) do
+		print(v)
 		check = instanceof(v, class, false)
 		if check then
 			break
@@ -249,7 +241,7 @@ end
 
 function bind(func, ...)
 	if not func then
-		if DEBUG_CLASS then
+		if DEBUG then
 			outputConsole(debug.traceback())
 			outputServerLog(debug.traceback())
 		end
@@ -362,7 +354,11 @@ oop.initClasses = function()
 		oop.prepareClass("TextDisplay")
 		oop.prepareClass("TextItem")
 	elseif CLIENT then
+		oop.prepareClass("Browser")
+		oop.prepareClass("Camera")
+		oop.prepareClass("Light")
 		oop.prepareClass("Projectile")
+		oop.prepareClass("SearchLight")
 		oop.prepareClass("Sound")
 		oop.prepareClass("Sound3D")
 		oop.prepareClass("Weapon")
@@ -384,6 +380,7 @@ oop.initClasses = function()
 		oop.prepareClass("GuiTabPanel")
 		oop.prepareClass("GuiTab")
 		oop.prepareClass("GuiFont")
+		oop.prepareClass("GuiBrowser")
 		oop.prepareClass("EngineCOL")
 		oop.prepareClass("EngineTXD")
 		oop.prepareClass("EngineDFF")

@@ -1,4 +1,4 @@
-Main = inherit(Singleton)
+Main = {}
 
 function Main.Event_OnResourceStart()
 	Core:new()

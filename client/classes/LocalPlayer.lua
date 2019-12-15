@@ -1,4 +1,4 @@
-LocalPlayer = inherit(Object)
+LocalPlayer = {}
 
 registerElementClass("player", LocalPlayer)
 
