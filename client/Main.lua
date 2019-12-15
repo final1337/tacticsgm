@@ -1,4 +1,4 @@
-Main = {}
+Main = inherit(Singleton)
 
 function Main.Event_OnResourceStart()
 	Core:new()
@@ -7,6 +7,6 @@ addEventHandler("onClientResourceStart", resourceRoot, Main.Event_OnResourceStar
 
 -- Todo: fix delete bug
 function Main.Event_OnResourceStop()
-	delete(core)
+	Core:delete()
 end
 addEventHandler("onClientResourceStop", resourceRoot, Main.Event_OnResourceStop)

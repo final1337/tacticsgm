@@ -1,4 +1,4 @@
-Core = {}
+Core = inherit(Object)
 
 function Core:constructor()
 	outputDebugString("Clientside-Loading core...")
@@ -14,13 +14,13 @@ function Core:constructor()
 		end
 	)
 
+	loadstring(exports.dgs:dgsImportOOPClass())() -- Load DGS Class
+	RegisterLogin:new()
 	outputDebugString("Clientside-Core has been loaded.")
 end
 
 function Core:afterDownload()
 	outputDebugString("Client] afterDownload-classes are loading...")
-
-	--RegisterLogin:new()
 
 	outputDebugString("Client] afterDownload-classes finished loading...")
 end

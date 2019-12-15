@@ -1,4 +1,4 @@
-Core = {}
+Core = inherit(Object)
 
 -- TODO: deactivate when real server is online
 DEBUG = false
@@ -8,9 +8,11 @@ function Core:constructor()
 
 	core = self
 
-	startResource(dx)
+	-- startResource(lib) -- // LOAD: DX-Lib
 
-    db = Database:new()
+	db = Database:new()
+	
+	RegisterLogin:new()
     
 	outputDebugString("Serverside-Core has been loaded.")
 end
