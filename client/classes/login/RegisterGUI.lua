@@ -17,7 +17,7 @@ function RegisterLogin:constructor()
     addEventHandler("onClientPreRender", root, bind(self.Event_ScreenShader, self))
 
     Timer(function() -- // Ensure that login has been loaded
-        addEventHandler("onDgsMouseClick", self.m_Login, bind(self.Event_Register, self))
+        addEventHandler("onDgsMouseClickUp", self.m_Login, bind(self.Event_Register, self))
     end, 2000, 1)
 end
 
@@ -77,11 +77,41 @@ end
 function RegisterLogin:Event_Register()
     if DGS:dgsGetText(self.m_PwEditBox) == DGS:dgsGetText(self.m_Pw2EditBox) then
         if DGS:dgsGetText(self.m_PwEditBox):len() >= 6 then
-            triggerClientEvent(localPlayer, "Server:RegisterLogin:Register", localPlayer, DGS:dgsGetText(self.m_PwEditBox))
+            triggerServerEvent("Server:RegisterLogin:Register", localPlayer, DGS:dgsGetText(self.m_PwEditBox))
         else
-            localPlayer:sendNotification("Das Passwort muss mindestens 6 Zeichen beinhalten!", 200, 0, 0)
+            localPlayer:sendMessage("Das Passwort muss mindestens 6 Zeichen beinhalten!", 200, 0, 0)
         end
     else
-        localPlayer:sendNotification("Gebe ein Passwort an, welches identisch ist!", 200, 0, 0)
+        localPlayer:sendMessage("Gebe ein Passwort an, welches identisch ist!", 200, 0, 0)
     end
+end
+
+function RegisterLogin:Event_RegisterWindow()
+    showCursor(true)
+    DGS:dgsSetSystemFont("files/fonts/EkMukta.ttf", 18)
+
+    self.m_Window = DGS:dgsCreateWindow(screenWidth/2 - 400/2, screenHeight/2 - 350/2, 400, 350, PROJECT_NAME, false)
+
+    self.m_Text = DGS:dgsCreateLabel(0.05, 0.05, 1, 1, "Willkommen zurück, "..localPlayer:getName(), true, self.m_Window)
+    local dsm = dxCreateFont("files/fonts/EkMukta.ttf", 18)
+    DGS:dgsSetFont(self.m_Text, dsm)
+
+
+    self.m_Text2 = DGS:dgsCreateLabel(0.05, 0.125, 1, 0.05, "Tippe dein Passwort zum Einloggen ein.", true, self.m_Window)
+    local dsm2 = dxCreateFont("files/fonts/EkMukta.ttf", 14)
+    DGS:dgsSetFont(self.m_Text2, dsm2)
+
+    self.m_Text3 = DGS:dgsCreateLabel(0.05, 0.2, 1, 0.05, "Passwort", true, self.m_Window)
+    local dsm3 = dxCreateFont("files/fonts/EkMukta.ttf", 17)
+    DGS:dgsSetFont(self.m_Text3, dsm)
+
+    self.m_PwEditBox = DGS:dgsCreateEdit(0.05, 0.28, 0.8, 0.1, "", true, self.m_Window)
+    DGS:dgsEditSetMasked(self.m_PwEditBox, true)
+
+    self.m_Login = DGS:dgsCreateButton(0.05, 0.825, 0.6, 0.1, "Einloggen", true, self.m_Window)
+    DGS:dgsSetFont(self.m_Login, dsm)
+
+    DGS:dgsWindowSetMovable(self.m_Window, false)
+    DGS:dgsWindowSetSizable(self.m_Window, false)
+
 end

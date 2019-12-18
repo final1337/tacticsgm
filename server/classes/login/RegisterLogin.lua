@@ -38,8 +38,8 @@ function RegisterLogin:Event_Register(password)
     local hash = passwordHash(password, "bcrypt", {})
 
     if #res == 0 then
-        dbExec(handler, "INSERT INTO userdata (Name, Password, Serial, IP, Money, Playtime, RegisterDate, LastLogin, Status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", client:getName(), hash, client:getSerial(), client:getIP(), PLAYER_STARTMONEY, 0, getTimestamp(), getTimeStamp(), PROJECT_NAME.." Spieler")
+        dbExec(handler, "INSERT INTO userdata (Name, Password, Serial, IP, Money, Playtime, RegisterDate, LastLogin, Status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", client:getName(), hash, client:getSerial(), client:getIP(), PLAYER_STARTMONEY, 0, getTimestamp(), getTimestamp(), PROJECT_NAME.." Spieler")
     else
-        client:sendNotification("Der Username ist bereits vergeben! Ändere ihn in den Settings und connecte neu!", 200, 0, 0)
+        client:sendMessage("Der Username ist bereits vergeben! Ändere ihn in den Settings und connecte neu!", 200, 0, 0)
     end
 end

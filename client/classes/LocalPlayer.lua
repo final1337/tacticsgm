@@ -33,6 +33,7 @@ function LocalPlayer:sendNotification(msg, r, g, b, ...)
 		r, g, b = 255, 255, 255
 	end	
 	Notification.Event_Notification(msg, r, g, b)
+	playSound("files/sounds/Message.mp3")
 end
 
 function LocalPlayer:getData(value)

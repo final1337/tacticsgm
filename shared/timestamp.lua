@@ -1,3 +1,9 @@
+function isLeapYear(year)
+    if year then year = math.floor(year)
+    else year = getRealTime().year + 1900 end
+    return ((year % 4 == 0 and year % 100 ~= 0) or year % 400 == 0)
+end
+
 function getTimestamp(year, month, day, hour, minute, second)
     -- initiate variables
     local monthseconds = { 2678400, 2419200, 2678400, 2592000, 2678400, 2592000, 2678400, 2678400, 2592000, 2678400, 2592000, 2678400 }

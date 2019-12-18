@@ -8,12 +8,22 @@
 
     <file src="files/sounds/Message.mp3" />
 
+    <file src="files/images/lobbys/dd.png" />
+    <file src="files/images/lobbys/tactics.png" />
+    <file src="files/images/lobbys/deathmatch.png" />
+    <file src="files/images/lobbys/1vs1.png" />
+
+    <file src="files/images/blur.png" />
+
     <!-- OOP Utils -->
 	<script src="shared/constants.lua" 		type="shared"/>
 	<script src="shared/async.lua" 			type="shared"/>
 	<script src="shared/classlib.lua" 		type="shared"/>
 	<script src="shared/Object.lua" 		type="shared"/>
 	<script src="shared/Singleton.lua"		type="shared"/>
+
+    <!-- Useful Utils-->
+	<script src="shared/timestamp.lua"		type="shared"/>
 	
     <!-- CLIENT -->
     <script src="client/classes/notificationbox/NotificationGUI.lua"   type="client"/>
