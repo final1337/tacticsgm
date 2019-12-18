@@ -13,16 +13,12 @@ function Core:constructor()
 			showCursor(not isCursorShowing())
 		end
 	)
-
+	
+    DGS = exports.dgs
 	loadstring(exports.dgs:dgsImportOOPClass())() -- Load DGS Class
 	RegisterLogin:new()
+	Notification:new()
 	outputDebugString("Clientside-Core has been loaded.")
-end
-
-function Core:afterDownload()
-	outputDebugString("Client] afterDownload-classes are loading...")
-
-	outputDebugString("Client] afterDownload-classes finished loading...")
 end
 
 function Core:pastLogin()

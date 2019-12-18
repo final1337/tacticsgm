@@ -3,6 +3,10 @@
      <oop>true</oop>
 
     <file src="files/fonts/EkMukta.ttf" />
+    
+    <file src="files/shader/blackwhite.fx" />
+
+    <file src="files/sounds/Message.mp3" />
 
     <!-- OOP Utils -->
 	<script src="shared/constants.lua" 		type="shared"/>
@@ -12,6 +16,7 @@
 	<script src="shared/Singleton.lua"		type="shared"/>
 	
     <!-- CLIENT -->
+    <script src="client/classes/notificationbox/NotificationGUI.lua"   type="client"/>
     <script src="client/classes/login/RegisterGUI.lua"   type="client"/>
 
     <script src="client/classes/LocalPlayer.lua"         type="client"/>

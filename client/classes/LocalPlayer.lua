@@ -28,6 +28,13 @@ function LocalPlayer:sendMessage(msg, r, g, b, ...)
 	outputChatBox((msg):format(...), r,g,b)
 end
 
+function LocalPlayer:sendNotification(msg, r, g, b, ...)
+	if not r then
+		r, g, b = 255, 255, 255
+	end	
+	Notification.Event_Notification(msg, r, g, b)
+end
+
 function LocalPlayer:getData(value)
 	return getElementData(self, value)
 end
