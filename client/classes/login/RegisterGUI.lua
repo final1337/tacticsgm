@@ -3,6 +3,7 @@ RegisterLogin = inherit(Singleton)
 screenWidth, screenHeight = guiGetScreenSize()
 
 addEvent("Client:RegisterLogin:Register", true)
+addEvent("Client:RegisterLogin:Login", true)
 
 function RegisterLogin:constructor()
     triggerServerEvent("Server:RegisterLogin:CheckAccount", localPlayer)
@@ -13,15 +14,22 @@ function RegisterLogin:constructor()
     self.m_ScreenShader, self.m_ScreenTec = dxCreateShader("files/shader/blackwhite.fx")    
 
     addEventHandler("Client:RegisterLogin:Register", root, bind(self.Event_RegisterWindow, self))
+    addEventHandler("Client:RegisterLogin:Login", root, bind(self.Event_LoginWindow, self))
 
     addEventHandler("onClientPreRender", root, bind(self.Event_ScreenShader, self))
 
     Timer(function() -- // Ensure that login has been loaded
-        addEventHandler("onDgsMouseClickUp", self.m_Login, bind(self.Event_Register, self))
+        if self.m_LoginType == "register" then
+            addEventHandler("onDgsMouseClickUp", self.m_Register, bind(self.Event_Register, self))
+        else
+            addEventHandler("onDgsMouseClickUp", self.m_Login, bind(self.Event_Login, self))
+        end
     end, 2000, 1)
 end
 
 function RegisterLogin:Event_RegisterWindow()
+    self.m_LoginType = "register"
+
     showCursor(true)
     DGS:dgsSetSystemFont("files/fonts/EkMukta.ttf", 18)
 
@@ -58,7 +66,7 @@ function RegisterLogin:Event_RegisterWindow()
     DGS:dgsSetFont(self.m_AutologinYes, dsm2)
     DGS:dgsSetFont(self.m_AutologinNo, dsm2)
 
-    self.m_Login = DGS:dgsCreateButton(0.05, 0.825, 0.6, 0.1, "Registration abschließen", true, self.m_Window)
+    self.m_Register = DGS:dgsCreateButton(0.05, 0.825, 0.6, 0.1, "Registration abschließen", true, self.m_Window)
     DGS:dgsSetFont(self.m_Login, dsm)
 
     DGS:dgsWindowSetMovable(self.m_Window, false)
@@ -86,32 +94,42 @@ function RegisterLogin:Event_Register()
     end
 end
 
-function RegisterLogin:Event_RegisterWindow()
+function RegisterLogin:Event_LoginWindow()
+    self.m_LoginType = "login"
+
     showCursor(true)
     DGS:dgsSetSystemFont("files/fonts/EkMukta.ttf", 18)
 
-    self.m_Window = DGS:dgsCreateWindow(screenWidth/2 - 400/2, screenHeight/2 - 350/2, 400, 350, PROJECT_NAME, false)
+    self.m_Window = DGS:dgsCreateWindow(screenWidth/2 - 400/2, screenHeight/2 - 200/2, 400, 200, PROJECT_NAME, false)
 
     self.m_Text = DGS:dgsCreateLabel(0.05, 0.05, 1, 1, "Willkommen zurück, "..localPlayer:getName(), true, self.m_Window)
     local dsm = dxCreateFont("files/fonts/EkMukta.ttf", 18)
     DGS:dgsSetFont(self.m_Text, dsm)
 
 
-    self.m_Text2 = DGS:dgsCreateLabel(0.05, 0.125, 1, 0.05, "Tippe dein Passwort zum Einloggen ein.", true, self.m_Window)
+    self.m_Text2 = DGS:dgsCreateLabel(0.05, 0.175, 1, 0.05, "Tippe dein Passwort zum Einloggen ein.", true, self.m_Window)
     local dsm2 = dxCreateFont("files/fonts/EkMukta.ttf", 14)
     DGS:dgsSetFont(self.m_Text2, dsm2)
 
-    self.m_Text3 = DGS:dgsCreateLabel(0.05, 0.2, 1, 0.05, "Passwort", true, self.m_Window)
+    self.m_Text3 = DGS:dgsCreateLabel(0.05, 0.3, 1, 0.05, "Passwort", true, self.m_Window)
     local dsm3 = dxCreateFont("files/fonts/EkMukta.ttf", 17)
     DGS:dgsSetFont(self.m_Text3, dsm)
 
-    self.m_PwEditBox = DGS:dgsCreateEdit(0.05, 0.28, 0.8, 0.1, "", true, self.m_Window)
+    self.m_PwEditBox = DGS:dgsCreateEdit(0.05, 0.45, 0.8, 0.2, "", true, self.m_Window)
     DGS:dgsEditSetMasked(self.m_PwEditBox, true)
 
-    self.m_Login = DGS:dgsCreateButton(0.05, 0.825, 0.6, 0.1, "Einloggen", true, self.m_Window)
+    self.m_Login = DGS:dgsCreateButton(0.05, 0.65, 0.6, 0.2, "Einloggen", true, self.m_Window)
     DGS:dgsSetFont(self.m_Login, dsm)
 
     DGS:dgsWindowSetMovable(self.m_Window, false)
     DGS:dgsWindowSetSizable(self.m_Window, false)
 
+end
+
+function RegisterLogin:Event_Login()
+    if DGS:dgsGetText(self.m_PwEditBox) then
+        triggerServerEvent("Server:RegisterLogin:Login", localPlayer, DGS:dgsGetText(self.m_PwEditBox))
+    else
+        localPlayer:sendMessage("Gib ein Passwort an!", 200, 0, 0)
+    end
 end

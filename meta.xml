@@ -37,6 +37,8 @@
     <!-- SERVER -->
     <script src="server/classes/mysql/Database.lua" type="server"/>
 
+    <script src="server/classes/Player.lua" type="server"/>
+
     <script src="server/classes/login/RegisterLogin.lua" type="server"/>
 
     <script src="server/classes/Core.lua"                type="server"/>
