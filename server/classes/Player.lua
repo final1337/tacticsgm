@@ -48,11 +48,18 @@ function Player:getSQLData(from, where, name, data)
     end
 end
 
-
 function Player:setLoginDatas()
     for k, v in ipairs(self.DataTable) do
         local data = self:getSQLData("userdata", "Name", self:getName(), v)
         self:setData(v, data)
         print("Loaded elementdata for player "..self:getName()..": "..self:getData(v))
+    end
+end
+
+function Player:savePlayerDatas()
+    if self:getData("loggedin") == 1 then
+        for k, v in ipairs(Player.DataTable) do
+            dbExec(handler, "UPDATE userdata SET ?? = ? WHERE Name = ?", v, self:getData(v), self:getName())
+        end
     end
 end

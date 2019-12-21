@@ -13,7 +13,11 @@ function Core:constructor()
 	db = Database:new()
 	
 	RegisterLogin:new()
-    
+
+	LobbyManager:new()
+
+	DMLobby:new()
+
 	outputDebugString("Serverside-Core has been loaded.")
 end
 

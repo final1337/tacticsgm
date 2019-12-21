@@ -16,8 +16,19 @@ function Core:constructor()
 	
     DGS = exports.dgs
 	loadstring(exports.dgs:dgsImportOOPClass())() -- Load DGS Class
+
 	RegisterLogin:new()
+
 	Notification:new()
+
+	LobbySelector:new()
+
+	LobbyManager:new()
+
+	DeathGraph:new()
+
+	Scoreboard:new()
+
 	outputDebugString("Clientside-Core has been loaded.")
 end
 

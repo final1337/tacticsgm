@@ -5,13 +5,18 @@
     <file src="files/fonts/EkMukta.ttf" />
     
     <file src="files/shader/blackwhite.fx" />
+    <file src="files/shader/old_film.fx" />
 
     <file src="files/sounds/Message.mp3" />
+    <file src="files/sounds/Wasted.mp3" />
 
     <file src="files/images/lobbys/dd.png" />
     <file src="files/images/lobbys/tactics.png" />
     <file src="files/images/lobbys/deathmatch.png" />
     <file src="files/images/lobbys/1vs1.png" />
+
+    <file src="files/images/death/Rectangle.png" />
+    <file src="files/images/death/vignette1.dds" />
 
     <file src="files/images/blur.png" />
 
@@ -23,10 +28,23 @@
 	<script src="shared/Singleton.lua"		type="shared"/>
 
     <!-- Useful Utils-->
-	<script src="shared/timestamp.lua"		type="shared"/>
+	<script src="shared/timestamp.lua"		type="shared"/>    
+
+	<script src="useful/client/isCursorOnElement.lua"		type="shared"/>
+
+	<script src="useful/shared/isEventHandlerAdded.lua"		type="shared"/>
+
 	
     <!-- CLIENT -->
     <script src="client/classes/notificationbox/NotificationGUI.lua"   type="client"/>
+
+    <script src="client/classes/scoreboard/ScoreboardUI.lua"   type="client"/>
+
+    <script src="client/classes/deathsystem/DeathGraph.lua"   type="client"/>
+
+    <script src="client/classes/lobbyselection/LobbyManager.lua"   type="client"/>
+    <script src="client/classes/lobbyselection/LobbySelectionGUI.lua"   type="client"/>
+
     <script src="client/classes/login/RegisterGUI.lua"   type="client"/>
 
     <script src="client/classes/LocalPlayer.lua"         type="client"/>
@@ -38,6 +56,9 @@
     <script src="server/classes/mysql/Database.lua" type="server"/>
 
     <script src="server/classes/Player.lua" type="server"/>
+
+    <script src="server/classes/lobbyselection/LobbyManager.lua"   type="server"/>
+    <script src="server/classes/lobbyselection/DM.lua"   type="server"/>
 
     <script src="server/classes/login/RegisterLogin.lua" type="server"/>
 

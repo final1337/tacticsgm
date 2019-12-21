@@ -5,9 +5,6 @@ registerElementClass("player", LocalPlayer)
 addEvent("Client:OnPastLogin", true)
 
 function LocalPlayer:constructor()
-	toggleControl("next_weapon", false)
-	toggleControl("previous_weapon", false)
-
 	self.m_Lobby = false
 
 	addEventHandler("Client:OnPastLogin", root, bind(self.Event_OnPastLogin, self))
@@ -38,6 +35,20 @@ end
 
 function LocalPlayer:getData(value)
 	return getElementData(self, value)
+end
+
+function LocalPlayer:setData(data, value)
+	setElementData(self, data, value)
+end
+
+function LocalPlayer:joinLobby(lobby)
+    local currentLobby = self:getData("Lobby")
+    if currentLobby == "main" then
+		self:setData("Lobby", lobby)
+		if lobby == "dm" then
+			LobbyManager:joinLobby("dm")
+		end
+    end
 end
 
 function LocalPlayer:destructor()

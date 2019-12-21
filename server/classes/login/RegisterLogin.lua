@@ -40,7 +40,13 @@ function RegisterLogin:Event_Register(password)
     local hash = passwordHash(password, "bcrypt", {})
 
     if #res == 0 then
+        client:setData("Money", 0)
+        client:setData("Playtime", 0)
+        client:setData("Status", 0)
         dbExec(handler, "INSERT INTO userdata (Name, Password, Serial, IP, Money, Playtime, RegisterDate, LastLogin, Status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", client:getName(), hash, client:getSerial(), client:getIP(), PLAYER_STARTMONEY, 0, getTimestamp(), getTimestamp(), PROJECT_NAME.." Spieler")
+        client:setData("loggedin", 1)
+        client:setData("Lobby", "main")
+        triggerClientEvent(client, "Client:RegisterLogin:Destroy", client)
     else
         client:sendMessage("Der Username ist bereits vergeben! Ändere ihn in den Settings und connecte neu!", 200, 0, 0)
     end
@@ -53,7 +59,10 @@ function RegisterLogin:Event_Login(password)
     if #res == 1 then
         if passwordVerify(password, hash) then
             client:sendMessage("Erfolgreich eingeloggt!", 0, 200, 0)
+            triggerClientEvent(client, "Client:RegisterLogin:Destroy", client)
             client:setLoginDatas()
+            client:setData("loggedin", 1)
+            client:setData("Lobby", "main")
         else
             client:sendMessage("Du hast ein falsches Passwort angegeben!", 200, 0, 0)
         end

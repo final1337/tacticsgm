@@ -1,13 +1,24 @@
+-- ****************************************************************************
+-- *
+-- *  PROJECT:     Hamburg Tactics
+-- *  FILE:        client/classes/login/RegisterGUI.lua
+-- *  PURPOSE:     Register Login
+-- *
+-- ****************************************************************************
+
 RegisterLogin = inherit(Singleton)
 
 screenWidth, screenHeight = guiGetScreenSize()
 
 addEvent("Client:RegisterLogin:Register", true)
 addEvent("Client:RegisterLogin:Login", true)
+addEvent("Client:RegisterLogin:Destroy", true)
 
 function RegisterLogin:constructor()
     triggerServerEvent("Server:RegisterLogin:CheckAccount", localPlayer)
-    
+
+    localPlayer:setData("Shader:BlackWhite", true)
+
     setCameraMatrix(1325.5030517578, -1250.5478515625, 33.938899993896, 1326.267578125, -1250.9506835938, 33.435646057129)
     fadeCamera(true, 3)
     self.m_ScreenSource = dxCreateScreenSource(screenWidth, screenHeight)
@@ -15,6 +26,7 @@ function RegisterLogin:constructor()
 
     addEventHandler("Client:RegisterLogin:Register", root, bind(self.Event_RegisterWindow, self))
     addEventHandler("Client:RegisterLogin:Login", root, bind(self.Event_LoginWindow, self))
+    addEventHandler("Client:RegisterLogin:Destroy", root, bind(self.Event_Destroy, self))
 
     addEventHandler("onClientPreRender", root, bind(self.Event_ScreenShader, self))
 
@@ -67,7 +79,7 @@ function RegisterLogin:Event_RegisterWindow()
     DGS:dgsSetFont(self.m_AutologinNo, dsm2)
 
     self.m_Register = DGS:dgsCreateButton(0.05, 0.825, 0.6, 0.1, "Registration abschließen", true, self.m_Window)
-    DGS:dgsSetFont(self.m_Login, dsm)
+    DGS:dgsSetFont(self.m_Register, dsm)
 
     DGS:dgsWindowSetMovable(self.m_Window, false)
     DGS:dgsWindowSetSizable(self.m_Window, false)
@@ -75,7 +87,7 @@ function RegisterLogin:Event_RegisterWindow()
 end
 
 function RegisterLogin:Event_ScreenShader()
-    if self.m_ScreenShader then
+    if self.m_ScreenShader and localPlayer:getData("Shader:BlackWhite") then
         dxUpdateScreenSource(self.m_ScreenSource)
         dxSetShaderValue(self.m_ScreenShader, "screenSource", self.m_ScreenSource)
         dxDrawImage(0, 0, screenWidth, screenHeight, self.m_ScreenShader)
@@ -132,4 +144,9 @@ function RegisterLogin:Event_Login()
     else
         localPlayer:sendMessage("Gib ein Passwort an!", 200, 0, 0)
     end
+end
+
+function RegisterLogin:Event_Destroy()
+    DGS:dgsCloseWindow(self.m_Window)
+    showChat(true)
 end
